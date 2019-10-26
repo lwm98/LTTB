@@ -1,10 +1,10 @@
 <template>
   <div>
-    <ul class="nav nav-pills">
-      <li role="presentation" class="active"><a href="home.html">Home</a></li>
-      <li role="presentation"><a href="#">Profile</a></li>
-      <li role="presentation"><a href="#">Messages</a></li>
-    </ul>
+    <el-container>
+      <el-main>Main
+        <a href="home.html">跳转到home</a>
+      </el-main>
+    </el-container>
   </div>
 </template>
 
@@ -15,5 +15,11 @@
 </script>
 
 <style scoped>
-
+  .el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+    line-height: 472px;
+    height: 722px;
+  }
 </style>
