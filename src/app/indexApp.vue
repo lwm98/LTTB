@@ -3,12 +3,12 @@
     <el-container>
       <el-main>
         <div class="topBox">
-          <div class="mylove" id="mylove">
+          <div class="mylove" id="mylove" @mouseenter="myloveshow" @mouseleave="mylovehide">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
                 <span>我喜欢</span>
                 <el-button style="float: right; padding: 3px 0" type="text">更多</el-button>
-                <div class="mylovepull" @mouseenter="myloveshow" @mouseout="mylovehide"><i class="el-icon-star-off"></i></div>
+                <div class="mylovepull" v-show="show2" ><i class="el-icon-star-off"></i></div>
               </div>
               <div v-for="o in 4" :key="o" class="text item">
                 {{'列表内容 ' + o }}
@@ -42,7 +42,7 @@
           <div class="left" v-show="show">
             <h3>正在播放:</h3>
             <el-tooltip class="item" effect="dark" content="点击即可开启/停止播放" placement="right">
-              <div class="circle rota" id="circle" @click="play"></div>
+              <div class="circle rota" id="circle" @click="play" ></div>
             </el-tooltip>
           </div>
           </transition>
@@ -61,15 +61,18 @@
 </template>
 
 <script>
+  import $ from 'jquery/dist/jquery.min'
   export default {
     name: 'loginApp',
     data () {
       return {
         inputData: '',
         show: false,
+        show2: true,
         isplay: true,
         canSearch: true,
-        myButtonIsLoading: false
+        myButtonIsLoading: false,
+        myloveshowclock: null
       }
     },
     watch: {
@@ -94,22 +97,10 @@
     },
     methods: {
       search () {
-        var target = 40
-        var current = 250
         this.show = true
         this.myButtonIsLoading = true
-        var myClock = setInterval(function () {
-          var step = (target - current) / 15
-          step = step > 0 ? Math.ceil(step) : Math.floor(step)
-          current = current + step
-          document.getElementById('search').style.marginTop = current + 'px'
-          if (current === 0) {
-            clearInterval(myClock)
-          }
-        }, 10)
-
+        $('#search').animate({ marginTop : '40px'}, 'slow' )
         console.log(this.input)
-
         const h = this.$createElement
         this.$notify({
           title: '提示',
@@ -120,22 +111,15 @@
         this.isplay = !this.isplay
       },
       myloveshow () {
-        var current = -374
-        var target = 0
-        var myloveshowclock = setInterval(function () {
-          var step = (target - current) / 15
-          step = step > 0 ? Math.ceil(step) : Math.floor(step)
-          current = current + step
-          console.log(current)
-          document.getElementById('mylove').style.left = current + 'px'
-          if (current == target) {
-            clearInterval(myloveshowclock)
-          }
-        }, 20)
+        $('#mylove').stop().animate({left : '0'}, 'slow')
       },
       mylovehide () {
-        // document.getElementById('mylove').style.left = -374 + 'px'
+        $('#mylove').stop().animate({left : '-374px'}, 'slow')
+        this.show2 = true
       }
+    },
+    mounted () {
+
     }
   }
 </script>
@@ -157,6 +141,7 @@
     position: absolute;
     top: 0;
     left: -374px;
+
   }
   /*这是我喜欢的卡片↓*/
   .text {
@@ -179,9 +164,8 @@
   .mylovepull{
     position: absolute;
     top: 0;
-    right: -13px;
-    border: 1px solid;
-    background-color: white;
+    right: -18px;
+    background-color: #E9EEF3;
   }
   /*到这里结束↑*/
   .bottomBox{
