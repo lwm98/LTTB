@@ -44,12 +44,18 @@
             <el-tooltip class="item" effect="dark" content="点击即可开启/停止播放" placement="right">
               <div class="circle rota" id="circle" @click="play" ></div>
             </el-tooltip>
+          <div class="musicRun">
+            <audio controls="controls" autoplay="autoplay">
+              <source :src="musicSource" type="audio/mpeg">
+            </audio>
+          </div>
           </div>
           </transition>
           <transition name="el-zoom-in-center">
           <div class="right" v-show="show">
             <h3>评论：</h3>
             <div class="comment">
+              <comments></comments>
             </div>
           </div>
           </transition>
@@ -62,6 +68,7 @@
 
 <script>
   import $ from 'jquery/dist/jquery.min'
+  import comments from '../components/comments'
   export default {
     name: 'loginApp',
     data () {
@@ -70,6 +77,7 @@
         show: false,
         show2: true,
         isplay: true,
+        musicSource: '',
         canSearch: true,
         myButtonIsLoading: false,
         myloveshowclock: null
@@ -115,8 +123,10 @@
           jsonpCallback: 'playMusic'
         })
           .done((data) => {
-            console.log(data)
+            console.log(data.a)
+            this.musicSource = 'http://music.163.com/song/media/outer/url?id=' + data.a + '.mp3'
             // 成功
+            this.inputData = ''
             this.show = true
             this.myButtonIsLoading = false
             this.$notify({
@@ -124,10 +134,16 @@
               message: '开始播放',
               type: 'success'
             })
-            $('#search').animate({ marginTop : '40px'}, 'slow' )
+            $('#search').animate({marginTop: '40px'}, 'slow')
           })
-          .fail(function () {
-            console.log('error')
+          .fail((data) => {
+            console.log(data)
+            this.$notify({
+              title: '错误',
+              message: '服务器可能爆炸了',
+              type: 'error'
+            })
+            this.myButtonIsLoading = false
           })
           .always(function () {
             console.log('complete')
@@ -137,16 +153,17 @@
         this.isplay = !this.isplay
       },
       myloveshow () {
-        $('#mylove').stop().animate({left : '0'}, 'slow')
+        $('#mylove').stop().animate({left: '0'}, 'slow')
       },
       mylovehide () {
-        $('#mylove').stop().animate({left : '-374px'}, 'slow')
+        $('#mylove').stop().animate({left: '-374px'}, 'slow')
         this.show2 = true
       }
     },
     mounted () {
 
-    }
+    },
+    components: {comments}
   }
 </script>
 
@@ -199,6 +216,9 @@
     height: 420px;
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
+  }
+  .comment{
     margin-top: 10px;
   }
   .bottomBox .left,.bottomBox .right{
