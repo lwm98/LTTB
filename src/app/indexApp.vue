@@ -24,6 +24,7 @@
               trigger="hover"
               content="我的快乐时代-陈奕迅">
               <el-input
+                @keyup.enter.native="search"
                 slot="reference"
                 placeholder="请输入您想听的歌曲"
                 v-model="inputData"
@@ -192,7 +193,10 @@
     position: absolute;
     top: 0;
     left: -374px;
-
+  }
+  .mylovepull i{
+    font-size: 31px;
+    color: blue;
   }
   /*这是我喜欢的卡片↓*/
   .text {
@@ -215,7 +219,7 @@
   .mylovepull{
     position: absolute;
     top: 0;
-    right: -18px;
+    right: -30px;
     background-color: #E9EEF3;
   }
   /*到这里结束↑*/
@@ -270,4 +274,5 @@
     width: 500px;
     margin: 0 auto;
   }
+
 </style>
