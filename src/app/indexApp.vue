@@ -97,15 +97,41 @@
     },
     methods: {
       search () {
-        this.show = true
+        // 按钮变成加载中
         this.myButtonIsLoading = true
-        $('#search').animate({ marginTop : '40px'}, 'slow' )
-        console.log(this.input)
+        // 提示加载
         const h = this.$createElement
         this.$notify({
           title: '提示',
           message: h('i', {style: 'color: teal'}, '歌曲正在加载中，请稍候')
         })
+        // 发送ajax请求
+        $.ajax({
+          url: 'http://47.98.182.28:5000/post/' + this.inputData,
+          async: 'false',
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonp: 'callback',
+          jsonpCallback: 'playMusic'
+        })
+          .done((data) => {
+            console.log(data)
+            // 成功
+            this.show = true
+            this.myButtonIsLoading = false
+            this.$notify({
+              title: '成功',
+              message: '开始播放',
+              type: 'success'
+            })
+            $('#search').animate({ marginTop : '40px'}, 'slow' )
+          })
+          .fail(function () {
+            console.log('error')
+          })
+          .always(function () {
+            console.log('complete')
+          })
       },
       play () {
         this.isplay = !this.isplay
