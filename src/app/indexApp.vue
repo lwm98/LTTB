@@ -45,9 +45,10 @@
               <div class="circle rota" id="circle" @click="play" ></div>
             </el-tooltip>
           <div class="musicRun">
-            <audio controls="controls" id="player">
-              <source :src="musicSource" type="audio/mpeg">
-            </audio>
+<!--            <audio controls="controls" id="player">-->
+<!--              <source :src="musicSource" type="audio/mpeg">-->
+<!--            </audio>-->
+            <audio v-if="show3" controls="controls" autoplay="autoplay" name="media" id="player"><source :src="musicSource" type="audio/mpeg"></audio>
           </div>
           </div>
           </transition>
@@ -76,6 +77,7 @@
         inputData: '',
         show: false,
         show2: true,
+        show3: false,
         isplay: true,
         musicSource: '',
         canSearch: true,
@@ -107,6 +109,7 @@
     },
     methods: {
       search () {
+        this.show3 = false
         // 按钮变成加载中
         this.myButtonIsLoading = true
         // 提示加载
@@ -136,6 +139,7 @@
               type: 'success'
             })
             $('#search').animate({marginTop: '40px'}, 'slow')
+            this.show3 = true
             this.inputData = ''
             document.getElementById('player').play()
           })
