@@ -45,7 +45,7 @@
               <div class="circle rota" id="circle" @click="play" ></div>
             </el-tooltip>
           <div class="musicRun">
-            <audio controls="controls" autoplay="autoplay">
+            <audio controls="controls" id="player">
               <source :src="musicSource" type="audio/mpeg">
             </audio>
           </div>
@@ -95,9 +95,11 @@
       isplay: function (val) {
         console.log('值为' + val)
         if (val) {
+          document.getElementById('player').play()
           console.log('正在播放 点击停止')
           document.getElementById('circle').className = 'circle rota'
         } else {
+          document.getElementById('player').pause()
           console.log('已停止播放 点击继续')
           document.getElementById('circle').className = 'circle'
         }
@@ -126,23 +128,25 @@
             console.log(data.a)
             this.musicSource = 'http://music.163.com/song/media/outer/url?id=' + data.a + '.mp3'
             // 成功
-            this.inputData = ''
             this.show = true
             this.myButtonIsLoading = false
             this.$notify({
               title: '成功',
-              message: '开始播放',
+              message: '开始播放' + this.inputData,
               type: 'success'
             })
             $('#search').animate({marginTop: '40px'}, 'slow')
+            this.inputData = ''
+            document.getElementById('player').play()
           })
           .fail((data) => {
+            if (data.readyState==4) {
+                this.$notify.error({
+                title: '错误',
+                message: '服务器可能被炸到外太空了'
+              })
+            }
             console.log(data)
-            this.$notify({
-              title: '错误',
-              message: '服务器可能爆炸了',
-              type: 'error'
-            })
             this.myButtonIsLoading = false
           })
           .always(function () {
@@ -248,8 +252,8 @@
     to{transform:rotate(1turn)}
   }
   .rota{
-    -webkit-animation: rotating 3s infinite linear;
-    animation: rotating 3s infinite linear;
+    -webkit-animation: rotating 4s infinite linear;
+    animation: rotating 4s infinite linear;
   }
   .search{
     width: 650px;

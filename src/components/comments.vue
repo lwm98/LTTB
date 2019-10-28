@@ -20,7 +20,7 @@
             placeholder="说两句吧"
             v-model="textarea1">
           </el-input>
-          <el-button type="success" plain>评论</el-button>
+          <el-button type="success" plain @click="comment">评论</el-button>
         </div>
       </div>
     </el-card>
@@ -35,6 +35,15 @@
         value2: null,
         textarea1: '',
         colors: ['#99A9BF', '#F7BA2A', '#FF9900']
+      }
+    },
+    methods: {
+      comment () {
+        this.$notify({
+          title: '评论成功',
+          message: '您的键盘已经飞到别人脸上去了',
+          type: 'success'
+        })
       }
     }
   }
