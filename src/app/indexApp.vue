@@ -1,8 +1,30 @@
 <template>
-  <div>
+  <div class="indexApp">
     <el-container>
       <el-main>
         <div class="topBox">
+          <div class="search" id="search">
+            <div class="myinput">
+              <el-popover
+                placement="bottom"
+                title="今日推荐："
+                width="200"
+                trigger="hover"
+                content="我的快乐时代-陈奕迅">
+                <el-input
+                  @keyup.enter.native="search"
+                  slot="reference"
+                  placeholder="请输入您想听的歌曲"
+                  v-model="inputData"
+                  autofocus="true"
+                  clearable>
+                </el-input>
+              </el-popover>
+            </div>
+            <div class="mybutton">
+              <el-button type="primary" icon="el-icon-search" :loading="myButtonIsLoading" @click="search" :disabled="canSearch">搜索</el-button>
+            </div>
+          </div>
           <div class="mylove" id="mylove" @mouseenter="myloveshow" @mouseleave="mylovehide">
             <el-card class="box-card">
               <div slot="header" class="clearfix">
@@ -15,54 +37,31 @@
               </div>
             </el-card>
           </div>
-          <div class="search" id="search">
-          <div class="myinput">
-            <el-popover
-              placement="bottom"
-              title="今日推荐："
-              width="200"
-              trigger="hover"
-              content="我的快乐时代-陈奕迅">
-              <el-input
-                @keyup.enter.native="search"
-                slot="reference"
-                placeholder="请输入您想听的歌曲"
-                v-model="inputData"
-                autofocus="true"
-                clearable>
-              </el-input>
-            </el-popover>
-          </div>
-          <div class="mybutton">
-              <el-button type="primary" icon="el-icon-search" :loading="myButtonIsLoading" @click="search" :disabled="canSearch">搜索</el-button>
-          </div>
-        </div>
         </div>
         <div class="bottomBox">
           <transition name="el-zoom-in-center">
-          <div class="left" v-show="show">
-            <h3>正在播放:</h3>
-            <el-tooltip class="item" effect="dark" content="点击即可开启/停止播放" placement="right">
-              <div class="circle rota" id="circle" @click="play" ></div>
-            </el-tooltip>
-          <div class="musicRun">
-<!--            <audio controls="controls" id="player">-->
-<!--              <source :src="musicSource" type="audio/mpeg">-->
-<!--            </audio>-->
-            <audio v-if="show3" controls="controls" autoplay="autoplay" name="media" id="player"><source :src="musicSource" type="audio/mpeg"></audio>
-          </div>
-          </div>
+            <div class="left" v-show="show">
+              <h3>正在播放:</h3>
+              <el-tooltip class="item" effect="dark" content="点击即可开启/停止播放" placement="right">
+                <div class="circle rota" id="circle" @click="play" ></div>
+              </el-tooltip>
+              <div class="musicRun">
+                <!--            <audio controls="controls" id="player">-->
+                <!--              <source :src="musicSource" type="audio/mpeg">-->
+                <!--            </audio>-->
+                <audio v-if="show3" controls="controls" autoplay="autoplay" name="media" id="player"><source :src="musicSource" type="audio/mpeg"></audio>
+              </div>
+            </div>
           </transition>
           <transition name="el-zoom-in-center">
-          <div class="right" v-show="show">
-            <h3>评论：</h3>
-            <div class="comment">
-              <comments></comments>
+            <div class="right" v-show="show">
+              <h3>评论：</h3>
+              <div class="comment">
+                <comments></comments>
+              </div>
             </div>
-          </div>
           </transition>
         </div>
-        <a href="home.html">跳转到home</a>
       </el-main>
     </el-container>
   </div>
@@ -139,7 +138,7 @@
               message: '开始播放' + this.inputData,
               type: 'success'
             })
-            $('#search').animate({marginTop: '40px'}, 'slow')
+            $('#search').animate({top: '10%'}, 'slow')
             this.show3 = true
             this.inputData = ''
             document.getElementById('player').play()
@@ -177,15 +176,17 @@
 </script>
 
 <style scoped>
+  .indexApp,.el-container,.el-main {
+    width: 100%;
+    height: 100%;
+  }
   .el-main {
-    background-color: #E9EEF3;
+    background-color: #eee;
     color: #333;
-    height: 722px;
   }
   .topBox{
     width: 100%;
-    height: 226px;
-    border: 1px solid #E9EEF3;
+    height: 183px;
     margin: 0;
     position: relative;
   }
@@ -225,7 +226,7 @@
   /*到这里结束↑*/
   .bottomBox{
     width: 100%;
-    height: 420px;
+    height: 417px;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
@@ -235,7 +236,7 @@
   }
   .bottomBox .left,.bottomBox .right{
     width: 658px;
-    height: 400px;
+    height: 415px;
     border: 1px solid white;
     padding: 0 20px;
     border-radius: 4px;
@@ -273,8 +274,10 @@
     width: 650px;
     display: flex;
     justify-content: space-between;
-    margin: 0 auto;
-    margin-top: 250px;
+    position: absolute;
+    top: 125%;
+    left: 50%;
+    margin-left: -325px;
   }
   .search .myinput{
     width: 500px;

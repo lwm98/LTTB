@@ -4,7 +4,6 @@
       <div v-for="o in 4" :key="o" class="text item">
         {{'列表内容 ' + o }}
       </div>
-      <hr>
       <div class="star">
         <div class="box4">
         <i>这首歌感觉怎么样：</i>
@@ -60,7 +59,7 @@
 
   .box-card {
     width: 100%;
-    height: 340px;
+    height: 360px;
   }
   .box3{
     margin-top: 10px;
@@ -74,7 +73,7 @@
   }
   .box4{
     margin-top: 10px;
-    width: 43%;
+    width: 45%;
     display: flex;
     justify-content: space-between;
   }
