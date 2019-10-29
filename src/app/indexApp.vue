@@ -119,7 +119,6 @@
           title: '提示',
           message: h('i', {style: 'color: teal'}, '歌曲正在加载中，请稍候')
         })
-        this.inputData = ''
         // 发送ajax请求
         $.ajax({
           url: 'http://47.98.182.28:5000/post/' + this.inputData,
@@ -130,20 +129,19 @@
           jsonpCallback: 'playMusic'
         })
           .done((data) => {
-            console.log(data.a)
-            this.musicSource = 'http://music.163.com/song/media/outer/url?id=' + data.a + '.mp3'
-            // 成功
-            this.show = true
-            this.myButtonIsLoading = false
             this.$notify({
               title: '成功',
-              message: '开始播放' + this.inputData,
+              message: '这是一条成功的提示消息',
               type: 'success'
             })
-            $('#search').animate({top: '10%'}, 'slow')
-            if ($('#search').css('top') === '10%') {
-              this.show3 = true
-            }
+            this.inputData = ''
+            this.myButtonIsLoading = false
+            this.musicSource = 'http://music.163.com/song/media/outer/url?id=' + data.a + '.mp3'
+            // 成功
+            $('#search').animate({top: '10%'}, 'slow', null, () => {
+              this.show = true
+            })
+            this.show3 = true
           })
           .fail((data) => {
             if (data.readyState === 4) {
@@ -171,7 +169,6 @@
       }
     },
     mounted () {
-
     },
     components: {comments}
   }
@@ -252,7 +249,7 @@
   }
   .bottomBox .left,.bottomBox .right{
     width: 658px;
-    height: 537px;
+    height: 509px;
     padding: 15px 20px;
     border-radius: 4px;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
@@ -301,5 +298,8 @@
   }
   .right .title{
     border-bottom: 2px solid #c20c0c;
+  }
+  .el-zoom-in-center-enter-active {
+    transition: all 1s ease!important;
   }
 </style>
