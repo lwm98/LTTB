@@ -248,9 +248,9 @@
     margin-top: 20px;
   }
   .bottomBox .left,.bottomBox .right{
-    width: 658px;
+    width: 44%;
     height: 509px;
-    padding: 15px 20px;
+    padding: 15px 30px;
     border-radius: 4px;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     z-index: 1;
@@ -258,12 +258,15 @@
   .bottomBox .left{
     text-align: center;
   }
+  .musicRun{
+    margin-top: 88px;
+  }
   .bottomBox .left .circle{
     width: 200px;
     height: 200px;
     margin:65px auto;
     border-radius: 100px;
-    background-color: yellow;
+    background-color: #292a2b;
     background-image: url("../assets/circle.png");
   }
   .bottomBox .left .circle:focus{

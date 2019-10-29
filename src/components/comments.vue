@@ -77,7 +77,7 @@
   }
   .box4{
     margin-top: 10px;
-    width: 45%;
+    width: 48%;
     display: flex;
     justify-content: space-between;
   }
