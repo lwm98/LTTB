@@ -252,6 +252,12 @@
     background-color: yellow;
     background-image: url("../assets/circle.png");
   }
+  .bottomBox .left .circle:focus{
+    outline: #67c23a;
+  }
+  #player:focus{
+    outline: #67c23a;
+  }
   .item{
     border: 0;
   }
