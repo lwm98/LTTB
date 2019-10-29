@@ -242,7 +242,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 76px;
   }
   .comment{
     margin-top: 20px;
