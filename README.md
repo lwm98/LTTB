@@ -1,30 +1,17 @@
-# lttb
+# LTTB
 
-> A Vue.js project
+## Listen to the sound
 
-## Build Setup
+##### (听个响就完事了)
 
-``` bash
-# install dependencies
-npm install
+## 这是一个前后端完全分离的项目
 
-# serve with hot reload at localhost:8080
-npm run dev
+## 前端使用vue+webpack+ElementUI
 
-# build for production with minification
-npm run build
+## 后端使用python语言及python爬虫，资源来自 网易云音乐
 
-# build for production and view the bundle analyzer report
-npm run build --report
+##### (学习使用，侵权必删)
 
-# run unit tests
-npm run unit
+## 项目已挂载阿里云：http://39.105.119.205/
 
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+如果您喜欢，请给我一个star⭐
