@@ -59,7 +59,11 @@
 
   .box-card {
     width: 100%;
-    height: 360px;
+    height: 480px;
+    background-color: #dfe1e1;
+  }
+  .star{
+    margin-top: 150px;
   }
   .box3{
     margin-top: 10px;

@@ -2,6 +2,7 @@
   <div class="indexApp">
     <el-container>
       <el-main>
+        <div class="bodymask"></div>
         <div class="topBox">
           <div class="search" id="search">
             <div class="myinput">
@@ -55,7 +56,8 @@
           </transition>
           <transition name="el-zoom-in-center">
             <div class="right" v-show="show">
-              <h3>评论：</h3>
+              <div class="title">
+              <h3>评论：</h3></div>
               <div class="comment">
                 <comments></comments>
               </div>
@@ -87,7 +89,6 @@
     },
     watch: {
       inputData: function (val) {
-        console.log(val)
         if (val != null && val !== '') {
           this.canSearch = false
         } else {
@@ -118,6 +119,7 @@
           title: '提示',
           message: h('i', {style: 'color: teal'}, '歌曲正在加载中，请稍候')
         })
+        this.inputData = ''
         // 发送ajax请求
         $.ajax({
           url: 'http://47.98.182.28:5000/post/' + this.inputData,
@@ -139,12 +141,12 @@
               type: 'success'
             })
             $('#search').animate({top: '10%'}, 'slow')
-            this.show3 = true
-            this.inputData = ''
-            document.getElementById('player').play()
+            if ($('#search').css('top') === '10%') {
+              this.show3 = true
+            }
           })
           .fail((data) => {
-            if (data.readyState==4) {
+            if (data.readyState === 4) {
                 this.$notify.error({
                 title: '错误',
                 message: '服务器可能被炸到外太空了'
@@ -153,7 +155,7 @@
             console.log(data)
             this.myButtonIsLoading = false
           })
-          .always(function () {
+          .always(() => {
             console.log('complete')
           })
       },
@@ -181,12 +183,27 @@
     height: 100%;
   }
   .el-main {
-    background-color: #eee;
-    color: #333;
+    color: white;
+  }
+  .bodymask{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    background-color: rgb(112, 153, 176);
+    background-image: url("https://y.gtimg.cn/music/photo_new/T002R300x300M0000046leX14AZUCw.jpg?max_age=2592000");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+    filter: blur(65px);
+    opacity: .6;
+    transform: translateZ(0);
+    width: 100%;
+    height: 100%;
   }
   .topBox{
     width: 100%;
-    height: 183px;
+    height: 65px;
     margin: 0;
     position: relative;
   }
@@ -194,10 +211,11 @@
     position: absolute;
     top: 0;
     left: -374px;
+    z-index: 100;
   }
   .mylovepull i{
     font-size: 31px;
-    color: blue;
+    color: white;
   }
   /*这是我喜欢的卡片↓*/
   .text {
@@ -221,26 +239,24 @@
     position: absolute;
     top: 0;
     right: -30px;
-    background-color: #E9EEF3;
   }
   /*到这里结束↑*/
   .bottomBox{
     width: 100%;
-    height: 417px;
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
   }
   .comment{
-    margin-top: 10px;
+    margin-top: 20px;
   }
   .bottomBox .left,.bottomBox .right{
     width: 658px;
-    height: 415px;
-    border: 1px solid white;
-    padding: 0 20px;
+    height: 537px;
+    padding: 15px 20px;
     border-radius: 4px;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    z-index: 1;
   }
   .bottomBox .left{
     text-align: center;
@@ -248,7 +264,7 @@
   .bottomBox .left .circle{
     width: 200px;
     height: 200px;
-    margin:35px auto;
+    margin:65px auto;
     border-radius: 100px;
     background-color: yellow;
     background-image: url("../assets/circle.png");
@@ -275,7 +291,7 @@
     display: flex;
     justify-content: space-between;
     position: absolute;
-    top: 125%;
+    top: 350%;
     left: 50%;
     margin-left: -325px;
   }
@@ -283,5 +299,7 @@
     width: 500px;
     margin: 0 auto;
   }
-
+  .right .title{
+    border-bottom: 2px solid #c20c0c;
+  }
 </style>
