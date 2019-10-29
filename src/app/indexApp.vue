@@ -131,7 +131,7 @@
           .done((data) => {
             this.$notify({
               title: '成功',
-              message: '这是一条成功的提示消息',
+              message: '开始播放',
               type: 'success'
             })
             this.inputData = ''
