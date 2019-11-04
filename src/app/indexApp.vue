@@ -177,6 +177,19 @@
     mounted () {
       this.todayrec = this.recommend[Math.floor(Math.random() * this.recommend.length)]
     },
+    updated () {
+      // 给播放器添加播放/暂停监听事件
+      if (document.getElementById('player')) {
+      document.getElementById('player').addEventListener('play', () => {
+        this.isplay = true
+        console.log('播放')
+      })
+      document.getElementById('player').addEventListener('pause', () => {
+        this.isplay = false
+        console.log('暂停')
+      })
+      }
+    },
     components: {comments}
   }
 </script>
