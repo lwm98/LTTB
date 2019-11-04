@@ -10,8 +10,8 @@
                 placement="bottom"
                 title="今日推荐："
                 width="200"
-                trigger="hover"
-                content="我的快乐时代-陈奕迅">
+                trigger="hover">
+                <i href="#" style="font-style: normal;color: blue;cursor: pointer;" @click="putIn">{{todayrec}}</i>
                 <el-input
                   @keyup.enter.native="search"
                   slot="reference"
@@ -54,15 +54,15 @@
               </div>
             </div>
           </transition>
-          <transition name="el-zoom-in-center">
-            <div class="right" v-show="show">
-              <div class="title">
-              <h3>评论：</h3></div>
-              <div class="comment">
-                <comments></comments>
-              </div>
-            </div>
-          </transition>
+<!--          <transition name="el-zoom-in-center">-->
+<!--            <div class="right" v-show="show">-->
+<!--              <div class="title">-->
+<!--              <h3>评论：</h3></div>-->
+<!--              <div class="comment">-->
+<!--                <comments></comments>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </transition>-->
         </div>
       </el-main>
     </el-container>
@@ -76,6 +76,8 @@
     name: 'loginApp',
     data () {
       return {
+        todayrec: '',
+        recommend: ['我的快乐时代-陈奕迅', '与我常在-陈奕迅', '沙龙-陈奕迅', '反高潮-陈奕迅', '裙下之臣-陈奕迅', '等-陈奕迅'],
         inputData: '',
         show: false,
         show2: true,
@@ -109,6 +111,10 @@
       }
     },
     methods: {
+      putIn () {
+        // 首先获取‘-’所咋的位置下标，用substring截取0到这里的字符串填入
+        this.inputData = this.todayrec.substring(0, this.todayrec.lastIndexOf('-'))
+      },
       search () {
         this.show3 = false
         // 按钮变成加载中
@@ -121,7 +127,7 @@
         })
         // 发送ajax请求
         $.ajax({
-          url: 'http://47.98.182.28:5000/post/' + this.inputData,
+          url: 'http://47.98.182.28:8081/post/' + this.inputData,
           async: 'false',
           type: 'GET',
           dataType: 'jsonp',
@@ -169,6 +175,7 @@
       }
     },
     mounted () {
+      this.todayrec = this.recommend[Math.floor(Math.random() * this.recommend.length)]
     },
     components: {comments}
   }
@@ -248,7 +255,7 @@
     margin-top: 20px;
   }
   .bottomBox .left,.bottomBox .right{
-    width: 44%;
+    width: 100%;
     height: 509px;
     padding: 15px 30px;
     border-radius: 4px;
